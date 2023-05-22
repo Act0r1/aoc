@@ -16,5 +16,11 @@ fn main() {
         }
         sum += line.trim().parse::<i32>().unwrap_or_default();
     }
-    println!("{:?}", ans.iter().max())
+    ans.sort();
+    ans.reverse();
+    let a1 = ans.iter().nth(0).unwrap();
+    let a2 = ans.iter().nth(1).unwrap();
+    let a3 = ans.iter().nth(2).unwrap();
+    println!("{:?}", a1+a2+a3);
+
 }
