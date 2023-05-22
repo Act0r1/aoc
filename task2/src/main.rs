@@ -17,19 +17,20 @@ fn main() {
     h.insert(["C", "X"], 7);
     h.insert(["C", "Y"], 2);
     h.insert(["C", "Z"], 6);
-    
+
     let mut s = String::new();
     let mut f = File::open("inp.txt").unwrap();
+    let mut sum = 0;
     f.read_to_string(&mut s).unwrap();
     for line in s.lines() {
-        println!("{:?}",handle_rps(&mut line.chars(), h));
-        break;
+        sum += handle_rps(&mut line.chars(), h.clone())
     }
+    println!("{:?}", sum);
 }
 
-fn handle_rps(inp: &mut Chars, ans: HashMap<&str,i32>)  {
+fn handle_rps(inp: &mut Chars, ans: HashMap<[&str; 2], i32>) -> i32 {
     let opponent = inp.nth(0).unwrap().to_string();
     let my = inp.nth_back(0).unwrap().to_string();
-    let op_score = ans.get(&*opponent).unwrap();
-    let my_score = ans.get(&*my).unwrap();
+    let op_score = ans.get(&[&*opponent, &*my]).unwrap();
+    *op_score
 }
